@@ -6,8 +6,8 @@ public class MarcadorDePuntos {
 
         Scanner scanner = new Scanner(System.in);
 
-        int puntos = 0;
-        int opcion = 0; 
+        int points = 0;
+        int option = 0; 
 
         do {
             System.out.println("--- Menú Marcador de Puntos ---");
@@ -18,32 +18,32 @@ public class MarcadorDePuntos {
             System.out.print("Elige una opción: "); 
 
             try {
-                opcion = scanner.nextInt();
+                option = scanner.nextInt();
             } catch (java.util.InputMismatchException e) {
                 System.out.println("Error: Debes ingresar un número válido.\n");
                 scanner.next();  
-                opcion = 0;
+                option = 0;
                 continue;  
             }
 
-            switch (opcion) {
+            switch (option) {
                 case 1: 
                     System.out.print("¿Cuántos puntos quieres sumar? ");
-                    int cantidadSuma = scanner.nextInt();
-                    puntos += cantidadSuma; 
+                    int amountSum = scanner.nextInt();
+                    points += amountSum; 
                     System.out.println("¡Puntos sumados correctamente!\n");
                     break; 
 
                 case 2:
                     System.out.print("¿Cuántos puntos quieres restar? ");
-                    int cantidadResta = scanner.nextInt();
-                    puntos -= cantidadResta; 
+                    int amountSubtraction = scanner.nextInt();
+                    points -= amountSubtraction; 
                     System.out.println("¡Puntos restados correctamente!\n");
                     break;
 
                 case 3: 
                     System.out.println("---------------------------");
-                    System.out.println("  Puntuación Actual: " + puntos);
+                    System.out.println("  Puntuación Actual: " + points);
                     System.out.println("---------------------------\n");
                     break;
 
@@ -52,14 +52,14 @@ public class MarcadorDePuntos {
                     break;
 
                 default: 
-                    if (opcion != 0) { 
+                    if (option != 0) { 
                         System.out.println("Opción no válida. Por favor, elige un número del 1 al 4.\n");
                     }
                     break;
             }
 
         
-        } while (opcion != 4);
+        } while (option != 4);
         
         
         scanner.close();
