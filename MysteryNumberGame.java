@@ -1,6 +1,3 @@
-package Laboratorio2_Grupo_6_DS;
-
-
 import java.util.Scanner;
 
 public class MysteryNumberGame {
