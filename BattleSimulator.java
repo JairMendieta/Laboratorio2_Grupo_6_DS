@@ -2,60 +2,73 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class BattleSimulator {
-
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         Random random = new Random();
-
-        System.out.println("Bienvenido al Simulador de Batalla! ");
+        int lifePlayer = 100;
+        int defensePlayer = 5;
         int lifeEnemy = 100;
-        int enemyDefense = 5;
-        int physicalPower = 20;
-        int magicalPower = 25;
-        int damage = 0;
+        int defensePhysicalEnemy = 5;
+        int defenseMagicalEnemy = 2;
+
         int round = 1;
 
-        while (round <= 5) {
+        System.out.println("¡Empieza la batalla! Tu y el enemigo tenéis 100 de vida.");
+
+        while (lifePlayer > 0 && lifeEnemy > 0) {
             System.out.println("\n--- Ronda " + round + " ---");
-            
-            System.out.print("Elige tu ataque (1 = Físico, 2 = Mágico): ");
-            int eleccion = scanner.nextInt();
+            System.out.print("Elige ataque (1 = Fisico, 2 = Magico): ");
+            String eleccion = scanner.next();
 
-            if (eleccion == 1) {
-                damage = physicalPower - enemyDefense;
-                System.out.println("Usaste Ataque Físico.");
-            } else if (eleccion == 2) {
-                damage = magicalPower;
-                System.out.println("Usaste Ataque Mágico.");
+            int damagePlayer = 0;
+
+            if (eleccion.equals("1")) {
+                int poderFisico = random.nextInt(15) + 10;
+                damagePlayer = poderFisico - defensePhysicalEnemy;
+                System.out.println("Usaste Ataque Fisico.");
+            } else if (eleccion.equals("2")) {
+                int poderMagico = random.nextInt(20) + 15;
+                damagePlayer = poderMagico - defenseMagicalEnemy;
+                System.out.println("Usaste Ataque Magico.");
             } else {
-                System.out.println("Opción inválida. Pierdes tu turno.");
-                continue; 
+                System.out.println("Opcion invalida. Pierdes el turno.");
             }
 
-            int probabilidadCritico = random.nextInt(10) + 1; 
-
-            if (probabilidadCritico <= 2 && damage > 0) {
-                damage = damage * 2; 
-                System.out.println("¡GOLPE CRÍTICO!");
+            if (damagePlayer < 0)
+                damagePlayer = 0;
+            if (damagePlayer > 0 && random.nextInt(100) < 15) {
+                damagePlayer *= 2;
+                System.out.println("¡GOLPE CRITICO!");
             }
 
-            if (damage < 0) {
-                damage = 0;
-            }
-            lifeEnemy = lifeEnemy - damage;
-            System.out.println("Le hiciste " +  damage + " de daño al enemigo.");
-            
+            lifeEnemy -= damagePlayer;
+            System.out.println("Le hiciste " + damagePlayer + " de daño. Vida del enemigo: " + Math.max(0, lifeEnemy));
+
             if (lifeEnemy <= 0) {
-                System.out.println("Vida del enemigo: 0");
-                System.out.println("\n¡Has derrotado al enemigo en " + round + " rondas!");
-                break; 
-            } else {
-                System.out.println("Vida del enemigo restante: " + lifeEnemy);
+                System.out.println("¡Has derrotado al enemigo en " + round + " rondas!");
+                break;
             }
-        }
 
-        if (lifeEnemy > 0) {
-            System.out.println("\nSe acabaron las 5 rondas. ¡El enemigo sobrevivió!");
+            int enemyPower = random.nextInt(11) + 10;
+            int damageEnemy = enemyPower - defensePlayer;
+
+            if (damageEnemy < 0)
+                damageEnemy = 0;
+
+            if (damageEnemy > 0 && random.nextInt(100) < 10) {
+                damageEnemy *= 2;
+                System.out.println("¡El enemigo te hizo un GOLPE CRITICO!");
+            }
+            lifePlayer -= damageEnemy;
+            System.out
+                    .println("El enemigo te hizo " + damageEnemy + " de daño. Tu vida: " + Math.max(0, lifePlayer));
+
+            if (lifePlayer <= 0) {
+                System.out.println("Has sido derrotado en " + round + " rondas.");
+                break;
+            }
+
+            round++;
         }
 
         scanner.close();
