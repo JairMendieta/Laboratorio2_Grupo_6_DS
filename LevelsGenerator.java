@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class GeneradorNiveles {
+public class LevelsGenerator {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         int level;

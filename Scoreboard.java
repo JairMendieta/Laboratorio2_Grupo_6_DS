@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class MarcadorDePuntos {
+public class Scoreboard {
 
     public static void main(String[] args) {
 
